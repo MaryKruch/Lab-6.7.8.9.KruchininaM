@@ -10,7 +10,11 @@
         <TabControl>
             <TabItem Header="Динамические массивы">
                 <Grid>
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="226*"/>
+                        <ColumnDefinition Width="321*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="252,0,0,0">
                         <TextBox x:Name="inputTextBox" Text="Введите массив из 9 вещественных чисел через пробел" Width="560" Margin="15"/>
                         <Button Content=" Вычислить среднее арифметическое элементов" Click="Button_Click" Margin="5"/>
                         <TextBlock x:Name="resultTextBlock" Margin="5"/>
@@ -29,9 +33,41 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Списки">
-                
+                <Grid>
+                    <TextBox x:Name="InputTextBox" HorizontalAlignment="Center" Height="30" Margin="14,23,0,0" TextWrapping="Wrap" Text="Введите цифры" VerticalAlignment="Top" Width="170"/>
+                    <Button x:Name="ProcessListButton" Content="Process List" HorizontalAlignment="Center" VerticalAlignment="Top" Width="130" Height="30" Margin="14,58,0,0" Click="ProcessListButton_Click"/>
+                    <TextBlock x:Name="OutputTextBlock" HorizontalAlignment="Center" Height="190" Margin="50,100,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="400"/>
+                </Grid>
             </TabItem>
             <TabItem Header="Словари" Height="31" VerticalAlignment="Top">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Введите номер покупки:" Margin="5" VerticalAlignment="Center"/>
+                            <TextBox x:Name="RecordsTextBox" VerticalAlignment="Center" Width="50"/>
+                            <Button Content="Расчитать" Click="CalculateButton_Click" Margin="5"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid>
+                    <StackPanel>
+                        <Label Content="Введите количество записей:"/>
+                        <TextBox x:Name="NumberOfRecordsTextBox" Width="100" Margin="-10 -20 100 0"/>
+                        <Label Content="Введите записи о покупках в формате Покупатель Товар Количество"/>
+                        <TextBox x:Name="PurchaseRecordsTextBox" Width="300" Height="100" TextWrapping="Wrap"/>
+                        <Button Content="Посчитать" Click="CalculateButton_Click"/>
+                    </StackPanel>
+                </Grid>
+
+                <ListBox x:Name="PurchasesListBox" Grid.Row="2"/>
+                    <ListBox x:Name="RecordsList" Visibility="Collapsed"/>
+                </Grid>
+
             </TabItem>
         </TabControl>
     </Grid>

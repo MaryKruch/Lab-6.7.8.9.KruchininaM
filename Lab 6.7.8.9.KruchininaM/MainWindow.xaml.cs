@@ -97,5 +97,68 @@ namespace Lab_6._7._8._9.KruchininaM
                 MessageBox.Show("Очередь пуста.");
             }
         }
+
+        private void ProcessListButton_Click(object sender, RoutedEventArgs e)
+        {
+            string input = InputTextBox.Text;
+            LinkedList<char> list = new LinkedList<char>(input.ToCharArray());
+
+            LinkedListNode<char> current = list.First;
+            while (current != null)
+            {
+                if (current.Value < 48)
+                {
+                    list.Remove(current);
+                    break;
+                }
+                if (Char.IsDigit(current.Value))
+                {
+                    list.AddAfter(current, '%');
+                    current = current.Next;
+                }
+                current = current.Next;
+            }
+
+            OutputTextBlock.Text = string.Join("", list);
+        }
+
+        private void CalculateButton_Click(object sender, RoutedEventArgs e)
+        {
+            int n = int.Parse(NumberOfRecordsTextBox.Text);
+            Dictionary<string, Dictionary<string, int>> purchases = new Dictionary<string, Dictionary<string, int>>();
+
+            for (int i = 0; i < n; i++)
+            {
+                string[] input = PurchaseRecordsTextBox.Text.Split(' ');
+
+                string customer = input[0];
+                string product = input[1];
+                int quantity = int.Parse(input[2]);
+
+                if (!purchases.ContainsKey(customer))
+                {
+                    purchases[customer] = new Dictionary<string, int>();
+                }
+
+                if (!purchases[customer].ContainsKey(product))
+                {
+                    purchases[customer][product] = quantity;
+                }
+                else
+                {
+                    purchases[customer][product] += quantity;
+                }
+            }
+
+            foreach (var customer in purchases)
+            {
+                string customerPurchases = $"{customer.Key}: ";
+                foreach (var purchase in customer.Value)
+                {
+                    customerPurchases += $"{purchase.Key} - {purchase.Value}, ";
+                }
+                MessageBox.Show(customerPurchases.TrimEnd(',', ' '), "Покупки");
+            }
+        }
     }
 }
